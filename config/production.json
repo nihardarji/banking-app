@@ -1,0 +1,3 @@
+{
+    "MongoURI" : "mongodb+srv://nihar:nihar@bankingapp.ogsiz.mongodb.net/bank_account?retryWrites=true&w=majority"
+}
