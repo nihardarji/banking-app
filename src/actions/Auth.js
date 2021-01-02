@@ -11,7 +11,6 @@ export const initiateLogin = (email, password) => async dispatch => {
             password
         })
         const user = result.data
-        console.log('initiateLogin',user)
         localStorage.setItem('user_token', user.token)
 
         dispatch({

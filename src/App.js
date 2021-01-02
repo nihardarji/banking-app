@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <Provider store={store}>
-      <Navbar/>
+      {/* <Navbar/> */}
 			<AppRouter/>
 		</Provider>
   );

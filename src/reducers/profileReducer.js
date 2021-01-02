@@ -1,4 +1,4 @@
-import { GET_PROFILE, UPDATE_PROFILE } from "../utils/Constant";
+import { GET_PROFILE, SIGN_OUT, UPDATE_PROFILE } from "../utils/Constant";
 
 const initialState = {
     profileInfo: null
@@ -11,7 +11,12 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profileInfo: action.payload
             }
-
+        
+        case SIGN_OUT:
+            return {
+                profileInfo: null
+            }
+        
         default:
             return state
     }

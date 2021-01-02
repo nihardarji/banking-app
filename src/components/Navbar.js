@@ -1,7 +1,8 @@
-import { AppBar, CssBaseline, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, CssBaseline, Divider, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core'
 import { AccountBalance, AccountCircle } from '@material-ui/icons'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { logout } from '../actions/Auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,17 +62,23 @@ const Navbar = ({ auth, logout }) => {
                         id="menu-appbar"
                         anchorEl={anchorEl}
                         anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'cneter',
+                            vertical: 'top',
+                            horizontal: 'right',
                         }}
                         keepMounted
                         transformOrigin={{
                             vertical: 'top',
-                            horizontal: 'center',
+                            horizontal: 'right',
                         }}
                         open={open}
                         onClose={handleClose}
                     >
+                        <Link to='/profile' style={{ textDecoration: 'none', display: 'block', color: '#000' }}>
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        </Link>
+                        <Link to='/account' style={{ textDecoration: 'none', display: 'block', color: '#000' }}>
+                            <MenuItem onClick={handleClose}>Account</MenuItem>
+                        </Link>
                         <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
                     </Menu>
                     </div>
