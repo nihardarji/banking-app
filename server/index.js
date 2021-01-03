@@ -5,6 +5,7 @@ const connectDB = require('./config/db')
 const authRoute = require('./routes/auth')
 const profileRoute = require('./routes/profile')
 const accountRoute = require('./routes/account')
+const transactionRoute = require('./routes/transaction')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use( express.json({ extended: false }))
 app.use(authRoute)
 app.use(profileRoute)
 app.use(accountRoute)
+app.use(transactionRoute)
 
 const PORT = process.env.PORT || 5000
 
