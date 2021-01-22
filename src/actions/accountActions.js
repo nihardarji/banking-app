@@ -3,11 +3,10 @@ import { setAuthHeader } from "../utils/Common"
 import { GET_ACCOUNT, UPDATE_ACCOUNT } from "../utils/Constant"
 import { setErrors } from './Alert'
 
-export const updateTotalBalance = (amountToChange, operation) => async dispatch => {
+export const updateAccount = (accountDetails) => async dispatch => {
     dispatch({
         type: UPDATE_ACCOUNT,
-        operation,
-        amountToChange
+        payload: accountDetails
     })
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core';
 import AccountForm from './AccountForm';
+import Summary from './Summary';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -55,7 +56,7 @@ const Account = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                Summary
+                <Summary/>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <AccountForm type='Withdraw'/>

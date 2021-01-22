@@ -1,18 +1,18 @@
 import Axios from 'axios'
 import { ADD_TRANSACTION } from '../utils/Constant'
-import { updateTotalBalance } from './accountActions'
+import { updateAccount } from './accountActions'
 import { setErrors } from './Alert'
 
 export const depositAmount = (account_id, deposit_amount) => async dispatch => {
     try {
-        await Axios.post(`/deposit/${account_id}`, { deposit_amount })
-        const transaction = { deposit_amount, withdraw_amount: null}
+        const { data: { msg , accountDetails, transactionDetails } } = await Axios.post(`/deposit/${account_id}`, { deposit_amount })
+        
         dispatch({
             type: ADD_TRANSACTION,
-            payload: transaction
+            payload: transactionDetails
         })
 
-        dispatch(updateTotalBalance(deposit_amount, 'deposit'))
+        dispatch(updateAccount(accountDetails))
     } catch (error) {
         error.response && dispatch(setErrors(error.response.data))
     }
@@ -20,14 +20,14 @@ export const depositAmount = (account_id, deposit_amount) => async dispatch => {
 
 export const withdrawAmount = (account_id, withdraw_amount) => async dispatch => {
     try {
-        await Axios.post(`/withdraw/${account_id}`, { withdraw_amount })
-        const transaction = { withdraw_amount, deposit_amount: null}
+        const { data: { msg , accountDetails, transactionDetails } } = await Axios.post(`/withdraw/${account_id}`, { withdraw_amount })
+
         dispatch({
             type: ADD_TRANSACTION,
-            payload: transaction
+            payload: transactionDetails
         })
 
-        dispatch(updateTotalBalance(withdraw_amount, 'withdraw'))
+        dispatch(updateAccount(accountDetails))
     } catch (error) {
         error.response && dispatch(setErrors(error.response.data))
     }
