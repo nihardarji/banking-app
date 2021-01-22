@@ -31,7 +31,7 @@ export const addAccountDetails = (account_no, bank_name, ifsc) => async (dispatc
             bank_name,
             ifsc
         })
-        console.log('accounttttt', account)
+        
         dispatch({
             type : GET_ACCOUNT,
             payload: account.data

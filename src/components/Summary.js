@@ -1,14 +1,12 @@
 import 'date-fns';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import DataTable from './TransactionTable'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { Button, makeStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { getTransactions } from '../actions/transactionAction';
+import TransactionTable from './TransactionTable';
 
 function disablePrevDates(startDate) {
     const startSeconds = Date.parse(startDate);
@@ -23,11 +21,21 @@ const useStyles = makeStyles({
     }
 })
 
-const Summary = () => {
+const Summary = ({ getTransactions, account }) => {
     const classes = useStyles()
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
+    useEffect(() => {
+        if(account._id){
+            getTransactions(account._id)
+        }
+    }, [account])
+
+    const onFilter = (event) => {
+        event.preventDefault()
+        getTransactions(account._id, startDate, endDate)
+    }
     return (
         <div>
             <Grid className={classes.margin} container justify='center' alignItems='center' spacing={2}>
@@ -69,14 +77,18 @@ const Summary = () => {
                     </MuiPickersUtilsProvider>
                 </Grid>
                 <Grid item xs={4}>
-                    <Button variant='contained' color='primary'>
-                        Show Transaction
+                    <Button variant='contained' onClick={onFilter} color='primary'>
+                        Filter
                     </Button>
                 </Grid>
             </Grid>
-            <DataTable/>
+            <TransactionTable/>
         </div>
     )
 }
 
-export default Summary
+const mapStateToProps = state => ({
+    account: state.account,
+})
+
+export default connect(mapStateToProps, { getTransactions })(Summary)

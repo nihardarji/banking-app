@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Card, CardActions, CardContent, Container, FormControl, Input, InputAdornment, InputLabel, makeStyles, OutlinedInput, Typography } from '@material-ui/core'
 import AddAccountForm from './AddAccountForm'
 import { connect } from 'react-redux'
-import { getAccountDetails } from '../actions/accountActions'
 import { maskNumber } from '../utils/mask'
 import { depositAmount, withdrawAmount } from '../actions/transactionAction'
 
@@ -32,21 +31,14 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const AccountForm = ({ type, account, userInfo, getAccountDetails, withdrawAmount, depositAmount }) => {
+const AccountForm = ({ type, account, withdrawAmount, depositAmount }) => {
     const classes = useStyles()
-    const { email } = userInfo
     const [amount, setAmount] = useState(null)
     const accountNo = account.account_no ? maskNumber(account.account_no) : ''
 
-    useEffect(() => {
-        if(email){
-            getAccountDetails()
-        }
-    }, [email])
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log('1234567')
         type === 'Deposit' ? depositAmount(account._id, Number(amount)) : withdrawAmount(account._id, Number(amount))
         setAmount('')
     }
@@ -93,8 +85,7 @@ const AccountForm = ({ type, account, userInfo, getAccountDetails, withdrawAmoun
 }
 
 const mapStateToProps = state => ({
-    account: state.account,
-    userInfo: state.auth.userInfo
+    account: state.account
 })
 
-export default connect(mapStateToProps, { getAccountDetails, depositAmount, withdrawAmount })(AccountForm)
+export default connect(mapStateToProps, { depositAmount, withdrawAmount })(AccountForm)

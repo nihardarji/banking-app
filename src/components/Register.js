@@ -85,13 +85,10 @@ const Register = ({ registerUser, setErrors, error, successMsg, auth }) => {
             history.push('/profile')
         }
         if(error && error.length !== 0){
-            console.log('if error')
             setValues({...values, open: true})
         } else if(successMsg && successMsg.length !== 0){
-            console.log('if succcc')
             setValues({...values, openSuccess: true})
         } else {
-            console.log('if not')
             setValues({...values, open: false})
             setValues({...values, openSuccess: false})
         }

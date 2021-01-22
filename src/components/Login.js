@@ -32,7 +32,6 @@ const Login = ({ initiateLogin, error, successMsg, setErrors, auth }) => {
     const classes = useStyles()
     const history = useHistory()
 
-    console.log('error', error)
     const [values, setValues] = useState({
         email: '',
         password: '',

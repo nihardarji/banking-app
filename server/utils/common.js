@@ -39,12 +39,7 @@ const getTransactions = async (account_id, startDate, endDate) => {
         if(startDate && endDate){
             const start = new Date(startDate).setHours(00,00,00)
             const end = new Date(endDate).setHours(23,59,59)
-            console.log('123456', new Date().getTimezoneOffset(), end,start, Date.parse(endDate))
-            if(new Date(end).getTime() > new Date(endDate).getTime()){
-              console.log('true')
-            } else {
-              console.log('false')
-            }
+
             const result = await Transactions.find({ 
                 account_id, 
                 transaction_date: {

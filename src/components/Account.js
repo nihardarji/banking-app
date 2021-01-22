@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppBar, Box, Tab, Tabs, Typography } from '@material-ui/core';
 import AccountForm from './AccountForm';
 import Summary from './Summary';
+import { connect } from 'react-redux';
+import { getAccountDetails } from '../actions/accountActions';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -29,16 +31,19 @@ function a11yProps(index) {
     }
 }
 
-const Account = () => {
+const Account = ({ userInfo, getAccountDetails }) => {
     const [value, setValue] = useState(0);
+    const { email } = userInfo
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const handleChangeIndex = (index) => {
-        setValue(index);
-    };
+    useEffect(() => {
+        if(email){
+            getAccountDetails()
+        }
+    }, [email])
     return (
         <div>
             <AppBar position="static" color="default">
@@ -69,4 +74,8 @@ const Account = () => {
     )
 }
 
-export default Account
+const mapStateToProps = state => ({
+    userInfo: state.auth.userInfo
+})
+
+export default connect(mapStateToProps, { getAccountDetails })(Account)

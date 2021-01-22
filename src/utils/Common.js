@@ -30,7 +30,6 @@ export const updateStore = (user) => {
 
 export const setAuthHeader = () => {
     const token = localStorage.getItem('user_token');
-    console.log('inside auth headers', token)
     if (token) {
         Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
