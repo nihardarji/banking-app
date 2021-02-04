@@ -7,7 +7,7 @@ import { initiateLogin } from '../actions/Auth'
 import { validateFields } from '../utils/Common'
 import { Alert } from '@material-ui/lab'
 import { setErrors } from '../actions/Alert'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     root1: {
@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     textField: {
       width: '50ch',
     },
+    linkStyle: {
+        textDecoration: 'none',
+        color: 'inherit',
+    }
 }))
 
 const Login = ({ initiateLogin, error, successMsg, setErrors, auth }) => {
@@ -134,6 +138,9 @@ const Login = ({ initiateLogin, error, successMsg, setErrors, auth }) => {
                         <Button type='submit' variant='contained' className={clsx(classes.margin, classes.textField)}> Login </Button>
                     </Box>
                 </Grid>
+                <Box my={1}>
+                    New Customer? <Link className={classes.linkStyle} to='/register'><strong>Register</strong></Link>
+                </Box>
             </Grid>
         </form>
     )

@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { validateFields } from '../utils/Common'
 import { setErrors } from '../actions/Alert'
 import { Alert } from '@material-ui/lab'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     root1: {
@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     textField: {
       width: '50ch',
     },
+    linkStyle: {
+        textDecoration: 'none',
+        color: 'inherit',
+    }
 }))
 
 const Register = ({ registerUser, setErrors, error, successMsg, auth }) => {
@@ -76,6 +80,7 @@ const Register = ({ registerUser, setErrors, error, successMsg, auth }) => {
                 setErrors({ signup_error: 'Password and Confirm password does not match' })
             } else {
                 const register = await registerUser({ name, email, password })
+                history.push('/')
             }
         }
     }
@@ -193,6 +198,9 @@ const Register = ({ registerUser, setErrors, error, successMsg, auth }) => {
                         <Button type='submit' variant='contained' className={clsx(classes.margin, classes.textField)}> Register </Button>
                     </Box>
                 </Grid>
+                <Box my={1}>
+                    Have an account? <Link className={classes.linkStyle} to='/'><strong>Login</strong></Link>
+                </Box>
             </Grid>
         </form>
     )
